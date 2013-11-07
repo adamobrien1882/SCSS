@@ -1,0 +1,165 @@
+// MIXINS
+@mixin after($afterTop:0, $afterLeft:0, $afterWidth:100%, $afterHeight:100%) {
+	content:"";
+	width:$afterWidth;
+	height:$afterHeight;
+	position:absolute;
+	top:$afterTop;
+	left:$afterLeft;
+}
+@mixin fontFace($fontFamily: $customFontFamily, $fontFile: $customFontFile, $fontFileSVG: $customFontFileSVG) {
+	font-family: '#{$fontFamily}';
+	src: url('fonts/#{$fontFile}.eot');
+	src: local('#'),
+		 url('fonts/#{$fontFile}.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/#{$fontFile}.woff') format('woff'),
+		 url('fonts/#{$fontFile}.ttf') format('truetype'),
+		 url('fonts/#{$fontFile}.svgz##{$fontFileSVG}') format('svg'),
+		 url('fonts/#{$fontFile}.svg##{$fontFileSVG}') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	text-rendering:optimizelegibility;
+}
+@mixin iconFont($fontFamily: $customIconFontFamily, $fontFile: $customIconFontFile) {
+	font-family: '#{$fontFamily}';
+	src: url('fonts/#{$fontFile}.eot');
+	src: url('fonts/#{$fontFile}.eot?#iefix') format('embedded-opentype'),
+		 url('fonts/#{$fontFile}.woff') format('woff'),
+		 url('fonts/#{$fontFile}.ttf') format('truetype'),
+		 url('fonts/#{$fontFile}.svg##{$fontFamily}') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	text-rendering:optimizelegibility;
+}
+@mixin customFont($fontSize:1em, $lineHeight:1.5em, $color:#fff) {
+	font-family: $customFontFamily, $font_family;
+	font-size: $fontSize;
+	font-weight:normal;
+	line-height: $lineHeight;
+	color: $color;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+	text-rendering:optimizelegibility;
+}
+@mixin customPtn($ptnOpacity: 0.42, $ptnImage:'ptn.png', $ptnIEOpacity: 0.1) {
+	position: relative;
+	z-index: 0;
+
+	&:before {
+		@include after;
+		@include opacity($ptnOpacity);
+		background: image-url('#{$ptnImage}') repeat;
+		z-index:-1;
+			
+		.lt-ie9 & {
+			@include opacity($ptnIEOpacity);
+		}
+	}
+}
+@mixin button(
+		$btnColor: 'red',
+		$btnFontSize:1.125em,
+		$btnCorners: 3px, 
+		$btnPadding: 0 0.5em,
+		$btnTextShadDir:-1px, 
+		$btnTextShadBlur: 0, 
+		$btnBorder:rgb(0,0,0),
+		$btnShadowTop: rgba(white,0.2),
+		$btnShadowBottom: rgba(black,0.25),
+		$btnGradStart:rgb(182,0,1),
+		$btnGradEnd:rgb(208,19,27),
+		$btnText:rgb(255,255,255),
+		$btnTextHover: $gold_border,
+		$btnTextShadColor:rgba(black,0.5)
+	) {
+	@if $btnColor == 'gold' {
+		$btnGradStart:rgb(209,176,95);
+		$btnGradEnd:rgb(235,202,121);
+		$btnText:rgb(144,28,28);
+		$btnTextHover: darken(rgb(144,28,28), 5%);
+		$btnTextShadColor:rgba(249,246,240,0.35);
+	}
+	@else if $btnColor == 'grey' {
+		$btnGradStart:rgb(190,190,190);
+		$btnGradEnd:rgb(200,200,200);
+		$btnText:rgb(62,62,62);
+		$btnTextHover: darken(rgb(62,62,62), 5%);
+		$btnTextShadColor:rgba(255,255,255,0.35);
+	}
+	@include transition(color $transition-speed ease-in-out, background $transition-speed ease-in-out);
+	background-color: $btnGradStart; // Old browsers
+	@include background-image(linear-gradient(left bottom,  $btnGradStart, $btnGradEnd));
+
+	@include border-radius($btnCorners);
+	width: auto;
+	height: auto;
+	display: inline-block;
+	font-family: $customFontFamily;
+	font-size: $btnFontSize;
+	line-height: 40px;
+	color: $btnText;
+	padding: $btnPadding;
+	border: 0;
+	text-shadow: $btnTextShadColor $btnTextShadDir $btnTextShadDir $btnTextShadBlur;
+	position: relative;
+
+	.boxshadow & {
+		@include box-shadow($btnShadowTop 0 1px 0 0 inset, $btnShadowBottom 0 1px 0 0);
+	}
+	> span {
+		padding: 0;
+	}
+	&:before {
+		text-shadow: $btnTextShadColor $btnTextShadDir $btnTextShadDir $btnTextShadBlur;
+		position: relative;
+		top: 2px;
+	}
+	&:visited {
+		color: $btnText;
+	}
+	&:hover, &:active, &:focus {
+		color: $btnTextHover;
+		border: 0;
+		background-color: lighten($btnGradStart,5%); // Old browsers
+		@include background-image(linear-gradient(left bottom,  lighten($btnGradStart, 5%) 0%, lighten($btnGradEnd, 5%) 100%));
+
+		.boxshadow & {
+			@include box-shadow($btnShadowTop 0 1px 0 0 inset, $btnShadowBottom 0 1px 0 0);
+		}
+	}
+}
+%listHover {
+	$darkenAmount: 5%;
+	background:darken(rgb(250,242,238), $darkenAmount);
+}
+@mixin goldGradient($diag: false, $darken:false, $darkenAmount:5%, $btnGradStart:rgb(214,188,120), $btnGradMiddle:rgb(212,175,98), $btnGradEnd:rgb(200,150,69)) {
+	@include box-shadow(rgba(107,58,25,0.5) 0 1px 0 inset, rgba(white,0.3) 0 2px 0 inset);
+	background: $btnGradMiddle;
+	@if $diag {
+		@if $darken {
+			@include background(linear-gradient(left top, darken($btnGradStart, $darkenAmount), darken($btnGradMiddle, $darkenAmount), darken($btnGradEnd, $darkenAmount)));
+		} @else {
+			@include background(linear-gradient(left top, $btnGradStart, $btnGradMiddle, $btnGradEnd));
+		}
+	} @else {
+		@if $darken {
+			@include background(linear-gradient(darken($btnGradStart, $darkenAmount), darken($btnGradMiddle, $darkenAmount), darken($btnGradEnd, $darkenAmount)));
+		} @else {
+			@include background(linear-gradient($btnGradStart, $btnGradMiddle, $btnGradEnd));
+		}
+	}
+}
+@mixin clearfix {
+    &:after, &:before {
+        content: "";
+        display: table;
+    }
+    &:after {
+        clear: both;
+    }
+    & {
+        *zoom: 1;
+    }
+}

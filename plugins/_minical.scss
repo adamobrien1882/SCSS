@@ -1,0 +1,140 @@
+$background: #fff;
+$cal_header_bg: $main_bgcolor;
+$light_border: #bebebe;
+$dark_border: darken($light_border, 5%);
+$light_text: #bebebe;
+$dark_text: #424242;
+$accent: $gold_solid;
+$box_shadow: 0 0 12px rgba(black, 0.2);
+$image_location: image-url('../img/jquery_minical_icons.png');
+
+ul.minical {
+	@include no-bullets;
+	@include box-shadow($box-shadow);
+	position: absolute;
+	display: none;
+	color: $dark_text;
+	background: $background;
+	margin: 0;
+	padding: 0;
+	text-shadow: none;
+	width: 18em;
+	z-index: 9327;
+	font-size: 1em;
+
+	li {
+		padding: 0;
+		margin: 0;
+
+		article {
+			float: left;
+			width: 100%;
+
+			header {
+				background: $cal_header_bg;
+				color: $background;
+				position: relative;
+				height: auto;
+				border: 0;
+				margin: 0;
+				padding: 0;
+
+				h1 {
+					font-size: 1.125em;
+					line-height: 1.5em;
+					font-weight: bold;
+					text-align: center;
+					color: $background;
+					padding: 0.25em 0;
+					margin: 0;
+				}
+				a {
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					line-height: 2.25em;
+					width: 2.25em;
+					height: auto;
+					font-size: 1em;
+					content: "\5b";
+					color: $background;
+					text-align:center;
+					
+					&:before {
+						content: "\5b";
+						font-family: $customIconFontFamily;
+					}
+					&.minical_next {
+						left: auto;
+						right: 0;
+						
+						&:before {
+							content: "\5d";
+						}
+					}
+
+				}
+			}
+			section {
+				margin: 1em;
+				margin-top: 0.75em;
+
+				table {
+					width: 100%;
+					color: inherit;
+					font-size: inherit;
+					border-collapse: collapse;
+
+					thead tr {
+						th {
+							font-size: 0.75em;
+							color: $light_text;
+							text-align: center;
+							border-bottom:0;
+						}
+					}
+					tbody tr {
+						td {
+							padding: 1px;
+							text-align: center;
+							font-size: 1em;
+
+							a {
+								display: block;
+								//border: 1px solid $light_border;
+								color: $dark_text;
+								padding: 0.2em 0;
+								width:2em;
+								text-decoration: none;
+							}
+							&.minical_highlighted a {
+								//border-color: darken($light_border, 10%);
+								color: $dark_text;
+								background: #e2e2e2;
+							}
+							&.minical_selected a {
+								//border-color: $text_link_normal;
+								color: $background;
+								background: $cal_header_bg;
+							}
+							&.minical_past_month a,
+							&.minical_future_month a,
+							&.minical_past_month.minical_highlighted a,
+							&.minical_future_month.minical_highlighted a {
+								//border-color: lighten($light_border, 10%);
+								color: $light_text;
+								background: white;
+							}
+							&.minical_today a {
+								//border-color: #bf9838;
+								background: $accent;
+								color: $text_link_normal;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
