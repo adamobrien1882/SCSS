@@ -152,14 +152,43 @@
 	}
 }
 @mixin clearfix {
-    &:after, &:before {
-        content: "";
-        display: table;
-    }
-    &:after {
-        clear: both;
-    }
-    & {
-        *zoom: 1;
-    }
+	&:after, &:before {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	& {
+		*zoom: 1;
+	}
+}
+
+// Chris Coyier -  http://css-tricks.com/conditional-media-query-mixins/?utm_source=Responsive+Design+Weekly&utm_campaign=4397db3874-Responsive_Design_Weekly_82&utm_medium=email&utm_term=0_df65b6d7c8-4397db3874-58972189
+@mixin bp($point) {
+	$bp-mob_port: "(max-width: 30em)";
+	$bp-mob_land: "(min-width: 30em)";
+	$bp-tab_port: "(min-width: 48em)";
+	$bp-tab_land: "(min-width: 64em)";
+	$bp-desktop: "(min-width: 80em)";
+	$bp-retina: "(-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-device-pixel-ratio: 1.5)";
+
+	@if $point == mobile-portrait {
+		@media #{$bp-mob_port} { @content; }
+	}
+	@else if $point == mobile-landscape {
+		@media #{$bp-mob_land} { @content; }
+	}
+	@else if $point == tablet-portrait {
+		@media #{$bp-tab_port}  { @content; }
+	}
+	@else if $point == tablet-landscape {
+		@media #{$bp-tab_land}  { @content; }
+	}
+	@else if $point == desktop {
+		@media #{$bp-desktop}  { @content; }
+	}
+	@else if $point == retina {
+		@media #{$bp-retine}  { @content; }
+	}
 }
