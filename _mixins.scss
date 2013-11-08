@@ -189,6 +189,6 @@
 		@media #{$bp-desktop}  { @content; }
 	}
 	@else if $point == retina {
-		@media #{$bp-retine}  { @content; }
+		@media #{$bp-retina}  { @content; }
 	}
 }
