@@ -164,7 +164,8 @@
 	}
 }
 
-// Chris Coyier -  http://css-tricks.com/conditional-media-query-mixins/?utm_source=Responsive+Design+Weekly&utm_campaign=4397db3874-Responsive_Design_Weekly_82&utm_medium=email&utm_term=0_df65b6d7c8-4397db3874-58972189
+// author: Chris Coyier
+// url: http://css-tricks.com/conditional-media-query-mixins/?utm_source=Responsive+Design+Weekly&utm_campaign=4397db3874-Responsive_Design_Weekly_82&utm_medium=email&utm_term=0_df65b6d7c8-4397db3874-58972189
 @mixin bp($point) {
 	$bp-mob_port: "(max-width: 30em)";
 	$bp-mob_land: "(min-width: 30em)";
