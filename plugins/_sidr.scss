@@ -1,16 +1,13 @@
-/* SIDR CSS */
-
+// SIDR CSS
 // Fonts
 $sidr-font-family: $customFontFamily $font_family;
 $sidr-font-size: 16px;
-
 // Colors
 $sidr-background : #333;
 $sidr-background-shadow-color : #222;
 $sidr-text-color: #FFF;
 
 .sidr {
-    /* Default Settings */
     display: none;
     position: absolute;
     position: fixed;
@@ -29,23 +26,20 @@ $sidr-text-color: #FFF;
             margin-right: 15px;
         }
     }
-
     &.right {
         left: auto;
         right: -260px;
     }
-
     &.left {
         left: -260px;
         right: auto;
     }
-
-    /* Theme Settings */
+    
     font-family: $sidr-font-family;
     font-size: $sidr-font-size;
     background: $sidr-background;
     color: $sidr-text-color;
-    @include box-shadow($sidr-background-shadow-color, 0, 0, 5px, 5px, inset);
+    @include box-shadow($sidr-background-shadow-color 0 0 5px 5px inset);
 
     h1, h2, h3, h4, h5, h6 {
         font-size: $sidr-font-size - 4;
@@ -54,8 +48,8 @@ $sidr-text-color: #FFF;
         margin: 0 0 5px;
         color: $sidr-text-color;
         line-height: 24px;
-        @include background-image(linear-gradient(lighten($sidr-background, 10%), darken($sidr-background, 10%)));
-        @include box-shadow(rgba(#000, .2), 0, 5px, 5px, 3px);
+        @include background(linear-gradient(to bottom, lighten($sidr-background, 10%), darken($sidr-background, 10%)));
+        @include box-shadow(rgba(#000, .2) 0 5px 5px 3px);
     }
 
     p {
@@ -91,18 +85,17 @@ $sidr-text-color: #FFF;
                 border-top: none;
                 line-height: 49px;
 
-                > a, > span {
-                    @include box-shadow($sidr-background-shadow-color, 0, 0, 15px, 3px, inset);
+                > a,
+                > span {
+                    @include box-shadow($sidr-background-shadow-color 0 0 15px 3px inset);
                 }
             }
-
             a, span {
                 padding: 0 15px;
                 display: block;
                 text-decoration: none;
                 color: $sidr-text-color;
             }
-
             ul {
                 border-bottom: none;
                 margin: 0;
@@ -113,19 +106,19 @@ $sidr-text-color: #FFF;
                     &:last-child {
                         border-bottom: none;
                     }
-
                     &:hover,
                     &.active,
                     &.sidr-class-active {
                         border-top: none;
                         line-height: 41px;
 
-                        > a, > span {
-                            @include box-shadow($sidr-background-shadow-color, 0, 0, 15px, 3px, inset);
+                        > a,
+                        > span {
+                            @include box-shadow($sidr-background-shadow-color 0 0 15px 3px inset);
                         }
                     }
-
-                    a, span {
+                    a,
+                    span {
                         color: rgba($sidr-text-color, .8);
                         padding-left: 30px;
                     }
@@ -133,52 +126,47 @@ $sidr-text-color: #FFF;
             }
         }
     }
+    // form {
+    //     margin: 0 15px;
+    // }
+    // label {
+    //     font-size: $sidr-font-size - 2;
+    // }
+    // input[type="text"],
+    // input[type="password"],
+    // input[type="date"],
+    // input[type="datetime"],
+    // input[type="email"],
+    // input[type="number"],
+    // input[type="search"],
+    // input[type="tel"],
+    // input[type="time"],
+    // input[type="url"],
+    // textarea, select {
+    //     width: 100%;
+    //     font-size: $sidr-font-size - 2;
+    //     padding: 5px;
+    //     @include box-sizing(border-box);
+    //     margin: 0 0 10px;
+    //     @include border-radius(2px);
+    //     border: none;
+    //     background: rgba(#000, .1);
+    //     color: rgba($sidr-text-color, .6);
+    //     display: block;
+    //     clear: both;
+    // }
+    // input[type=checkbox] {
+    //     width: auto;
+    //     display: inline;
+    //     clear: none;
+    // }
+    // input[type=button],
+    // input[type=submit] {
+    //     color: $sidr-background;
+    //     background: $sidr-text-color;
 
-    form {
-        margin: 0 15px;
-    }
-
-    label {
-        font-size: $sidr-font-size - 2;
-    }
-
-    input[type="text"],
-    input[type="password"],
-    input[type="date"],
-    input[type="datetime"],
-    input[type="email"],
-    input[type="number"],
-    input[type="search"],
-    input[type="tel"],
-    input[type="time"],
-    input[type="url"],
-    textarea, select {
-        width: 100%;
-        font-size: $sidr-font-size - 2;
-        padding: 5px;
-        @include box-sizing(border-box);
-        margin: 0 0 10px;
-        @include border-radius(2px);
-        border: none;
-        background: rgba(#000, .1);
-        color: rgba($sidr-text-color, .6);
-        display: block;
-        clear: both;
-    }
-
-    input[type=checkbox] {
-        width: auto;
-        display: inline;
-        clear: none;
-    }
-
-    input[type=button],
-    input[type=submit] {
-        color: $sidr-background;
-        background: $sidr-text-color;
-
-        &:hover {
-            background: rgba($sidr-text-color, .9);
-        }
-    }
+    //     &:hover {
+    //         background: rgba($sidr-text-color, .9);
+    //     }
+    // }
 }

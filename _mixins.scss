@@ -90,9 +90,11 @@
 	}
 	@include transition(color $transition-speed ease-in-out, background $transition-speed ease-in-out);
 	background-color: $btnGradStart; // Old browsers
-	@include background-image(linear-gradient(left bottom,  $btnGradStart, $btnGradEnd));
-
+	@include background(linear-gradient(to top right, $btnGradStart, $btnGradEnd));
+	@include box-shadow($btnShadowTop 0 1px 0 0 inset, $btnShadowBottom 0 1px 0 0);
+	@include box-sizing(border-box);
 	@include border-radius($btnCorners);
+	@include text-shadow($btnTextShadDir $btnTextShadDir $btnTextShadBlur $btnTextShadColor);
 	width: auto;
 	height: auto;
 	display: inline-block;
@@ -102,17 +104,13 @@
 	color: $btnText;
 	padding: $btnPadding;
 	border: 0;
-	text-shadow: $btnTextShadColor $btnTextShadDir $btnTextShadDir $btnTextShadBlur;
 	position: relative;
 
-	.boxshadow & {
-		@include box-shadow($btnShadowTop 0 1px 0 0 inset, $btnShadowBottom 0 1px 0 0);
-	}
 	> span {
 		padding: 0;
 	}
 	&:before {
-		text-shadow: $btnTextShadColor $btnTextShadDir $btnTextShadDir $btnTextShadBlur;
+		@include text-shadow($btnTextShadDir $btnTextShadDir $btnTextShadBlur $btnTextShadColor);
 		position: relative;
 		top: 2px;
 	}
@@ -122,12 +120,56 @@
 	&:hover, &:active, &:focus {
 		color: $btnTextHover;
 		border: 0;
+		background-color: lighten($btnGradStart,5%);
+		@include background-image(linear-gradient(to top right, lighten($btnGradStart, 5%) 0%, lighten($btnGradEnd, 5%) 100%));
+		@include box-shadow($btnShadowTop 0 1px 0 0 inset, $btnShadowBottom 0 1px 0 0);
+	}
+	// under 480px
+	@media all and (max-width: 30em) {
+		width: 100%;
+		text-align: center;
+		padding: 0;
+	}
+}
+@mixin button_color(
+		$btnColor: 'red',
+		$btnGradStart: rgb(182,0,1),
+		$btnGradEnd: rgb(208,19,27),
+		$btnText: rgb(255,255,255),
+		$btnTextHover: $gold_border,
+		$btnTextShadColor: rgba(black,0.5),
+		$btnTextShadDir:-1px, 
+		$btnTextShadBlur: 0
+	) {
+	@if $btnColor == 'gold' {
+		$btnGradStart: rgb(209,176,95);
+		$btnGradEnd: rgb(235,202,121);
+		$btnText: rgb(144,28,28);
+		$btnTextHover: darken(rgb(144,28,28), 5%);
+		$btnTextShadColor: rgba(249,246,240,0.35);
+	}
+	@else if $btnColor == 'grey' {
+		$btnGradStart: rgb(190,190,190);
+		$btnGradEnd: rgb(200,200,200);
+		$btnText: rgb(62,62,62);
+		$btnTextHover: darken(rgb(62,62,62), 5%);
+		$btnTextShadColor: rgba(255,255,255,0.35);
+	}
+	background-color: $btnGradStart; // Old browsers
+	@include background(linear-gradient(to top right, $btnGradStart, $btnGradEnd));
+	color: $btnText;
+	@include text-shadow($btnTextShadDir $btnTextShadDir $btnTextShadBlur $btnTextShadColor);
+	
+	&:before {
+		@include text-shadow($btnTextShadDir $btnTextShadDir $btnTextShadBlur $btnTextShadColor);
+	}
+	&:visited {
+		color: $btnText;
+	}
+	&:hover, &:active, &:focus {
+		color: $btnTextHover;
 		background-color: lighten($btnGradStart,5%); // Old browsers
-		@include background-image(linear-gradient(left bottom,  lighten($btnGradStart, 5%) 0%, lighten($btnGradEnd, 5%) 100%));
-
-		.boxshadow & {
-			@include box-shadow($btnShadowTop 0 1px 0 0 inset, $btnShadowBottom 0 1px 0 0);
-		}
+		@include background(linear-gradient(to top right, lighten($btnGradStart, 5%) 0%, lighten($btnGradEnd, 5%) 100%));
 	}
 }
 %listHover {
@@ -139,15 +181,15 @@
 	background: $btnGradMiddle;
 	@if $diag {
 		@if $darken {
-			@include background(linear-gradient(left top, darken($btnGradStart, $darkenAmount), darken($btnGradMiddle, $darkenAmount), darken($btnGradEnd, $darkenAmount)));
+			@include background(linear-gradient(to bottom, darken($btnGradStart, $darkenAmount), darken($btnGradMiddle, $darkenAmount), darken($btnGradEnd, $darkenAmount)));
 		} @else {
-			@include background(linear-gradient(left top, $btnGradStart, $btnGradMiddle, $btnGradEnd));
+			@include background(linear-gradient(to bottom, $btnGradStart, $btnGradMiddle, $btnGradEnd));
 		}
 	} @else {
 		@if $darken {
-			@include background(linear-gradient(darken($btnGradStart, $darkenAmount), darken($btnGradMiddle, $darkenAmount), darken($btnGradEnd, $darkenAmount)));
+			@include background(linear-gradient(to bottom, darken($btnGradStart, $darkenAmount), darken($btnGradMiddle, $darkenAmount), darken($btnGradEnd, $darkenAmount)));
 		} @else {
-			@include background(linear-gradient($btnGradStart, $btnGradMiddle, $btnGradEnd));
+			@include background(linear-gradient(to bottom, $btnGradStart, $btnGradMiddle, $btnGradEnd));
 		}
 	}
 }
